@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatMee</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+    <link rel="icon" href="./img/favicon.png">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="top__info">
+        <center>
+            <h2>Chatit</h2>
+            <p>Made with &hearts; by Rachit Tandon</p>
+        </center>
+    </div>
+    <span class="icon" onclick="sidebarReveal()"><i class="fa fa-th-large" style="color: white; font-size: 2em;">
+        </i>
+    </span>
+    <div class="home__sidebar" id="home__sidebar">
+        <span class="close" id="close" onclick="sidebarClose()"><i class="fa fa-window-close"
+                style="color:white; font-size: 2em;"></i></span>
+        <br>
+        <br>
+        <h1>Active Rooms:</h1>
+        <div id="room-list"></div>
+    </div>
+
+    <div class="welcome__note">
+        <center>
+            <p>Hi there, Welcome to this chat application..</p><br>
+            <p>You can find the active chatrooms in the sidebar.</p>
+            <p>To join a chat room, just type your username and the room you want to join (case insensitive)</p><br>
+            <p>You can also create a new room by typing a new name</p><br>
+        </center>
+    </div>
+    <div class="centered-form" id="centered-form">
+        <div class="centered-form__box">
+            <h1>Join</h1>
+            <form onsubmit="return check_if_capcha_is_filled()" action="./chat.html">
+
+                <label>Display Name</label>
+                <input type="text" name="username" placeholder="Display Name" required>
+                <label>Room</label>
+                <input type="text" name="room" placeholder="Room" required>
+                <div class="g-recaptcha" data-sitekey="6LfcsbEZAAAAAJMOGxzEOyd1ZxYlU6ldDVI7HgC8"
+                    data-callback="capcha_filled" data-expired-callback="capcha_expired"></div>
+                </br>
+                <button>Join</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <script id="count-template" type="text/html">
+        <ul class="users">
+            {{#rooms}}
+            <li><b>{{room}}</b> - {{count}} user(s)</li>
+            {{/rooms}}
+        </ul>
+    </script>
+
+    <script>
+        const countTemplate = document.querySelector("#count-template").innerHTML
+
+        var soundClick = new Howl({
+            src: ['./assets/knob.mp3'],
+            autoplay: false,
+            loop: false,
+            volume: 0.8,
+            onend: function () {
+                console.log('Finished!');
+            }
+        })
+
+        function getData() {
+            fetch('/active').then((response) => {
+                response.json().then((data) => {
+                    const html = Mustache.render(countTemplate, {
+                        rooms: data
+                    })
+                    document.querySelector("#room-list").innerHTML = html
+                })
+            })
+        }
+        getData()
+        window.setInterval(getData, 2000)
+        function sidebarReveal() {
+            const elem = document.getElementById("home__sidebar")
+            // elem.style.display = "block"
+            elem.style.width = "50%"
+            elem.style.animation = "popin 0.5s ease-in-out forwards"
+            document.getElementById("close").style.display = "block"
+
+            soundClick.play()
+        }
+        function sidebarClose() {
+            const elem = document.getElementById("home__sidebar")
+            elem.style.animation = "popout 0.5s ease-in-out forwards"
+
+            soundClick.play()
+        }
+
+        var allowSubmit = false
+
+        function capcha_filled() {
+            allowSubmit = true;
+        }
+
+        function capcha_expired() {
+            allowSubmit = false;
+        }
+
+        function check_if_capcha_is_filled() {
+            soundClick.play()
+            if (allowSubmit) return true;
+            alert('Fill in the capcha!');
+            return false
+        }
+    </script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js"></script>
+</body>
+
+</html>

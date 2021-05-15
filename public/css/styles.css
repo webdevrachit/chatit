@@ -1,0 +1,398 @@
+/* General Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+input {
+    font-size: 14px;
+}
+
+body {
+    line-height: 1.4;
+    color: #333333;
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #333744;
+}
+
+h1 {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #777;
+}
+
+input {
+    border: 1px solid #eeeeee;
+    padding: 12px;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    padding: 12px;
+    background: #7C5CBF;
+    border: none;
+    color: white;
+    font-size: 16px;
+    transition: background .3s ease;
+}
+
+button:hover {
+    background: #6b47b8;
+}
+
+button:disabled {
+    cursor: default;
+    background: #7c5cbf94;
+}
+
+
+/* Join Page Styles */
+
+.top__info h2{
+    font-size: 3em;
+    margin-bottom: 0px;
+    margin-top: -10px;
+    color: white;
+    /* padding: 10px; */
+}
+
+.top__info {
+    background-color: #565964;
+    width: 100%;
+}
+.top__info p{
+    color: rgba(245, 245, 245, 0.466);
+    margin-top: -10px;
+}
+
+.icon{
+    position: relative;
+    z-index: 10;
+    padding: 10px;
+    float: left;
+    display: none;
+    background-color: #0070CC;
+    border-radius: 10px;
+    left: -5px;
+    animation: ipopin 0.5s ease-in-out forwards;
+}
+.icon:hover{
+    background-color: #0070cc7e;
+}
+
+.icon::before{
+    display: none;
+}
+@keyframes ipopin{
+    0%{left: -50px;}
+    100%{left: -5px;}
+}
+
+.home__sidebar{
+    width: 30%;
+    height: 100%;
+    padding: 10px;
+    background-color: rgba(66, 181, 248, 0.877);
+    position: absolute;
+    width: 30%;
+    left: 0px;
+    z-index: 200;
+    color: whitesmoke;
+    display: block;
+    box-shadow: 0px 20px 0px #1D1F26;
+    transition: 0.5s;
+    overflow-y: scroll;
+}
+
+#room-list{
+    color: whitesmoke;
+}
+
+
+@keyframes popin{
+    0%{transform: translateX(-150);}
+    100%{transform: translateX(0%);}
+}
+
+@keyframes popout{
+    0%{transform: translateX(0%);}
+    100%{transform: translateX(-150%);}
+}
+
+.close{
+    position: relative;
+    float: right;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+    display: none;
+}
+.close:hover {
+    background-color: #333744;
+}
+
+
+.centered-form {
+    background: #333744;
+    padding: 30px;
+    width:70%;
+    height: 100%;   
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    float: right;
+}
+.welcome__note{
+    color: white;
+    position: relative;
+    width: 70%;
+    float: right;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.centered-form__box {
+    box-shadow: 0px 0px 17px 1px #1D1F26;
+    background: #F7F7FA;
+    padding: 24px;
+    width: 350px;
+}
+
+.centered-form button {
+    width: 100%;
+}
+
+.centered-form input {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+@media only screen and (max-width: 800px){
+    .home__sidebar{
+        transform: translateX(-150%);
+    }
+    .centered-form{
+        width: 100%;
+    }
+    .welcome__note{
+        width: 100%;
+    }
+    .icon{
+        display: block;
+    }
+}
+
+
+
+/* Chat Page Layout */
+
+.chat {
+    display: flex;
+    height: 100%;
+}
+
+.chat__sidebar {
+    height: 100vh;
+    color: white;
+    background: #333744;
+    width: 30%;
+    overflow-y: scroll
+}
+
+/* Chat styles */
+
+.chat__main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    width: 70%;
+    background-color: whitesmoke;
+}
+
+.chat__messages {
+    flex-grow: 1;
+    padding: 24px 24px 0 24px;
+    overflow-y: scroll;
+}
+
+/* Message Styles */
+
+.enclose{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+
+.message {
+    margin-bottom: 10px;   
+    border-radius: 10px;
+    background-color: rgb(185, 215, 240);
+    width: 30%;
+    padding: 4px 10px;
+    animation: popup 0.3s ease forwards;
+}
+
+.user{
+    float: right;
+}
+
+.message::before{
+    opacity: 0;
+}
+
+@keyframes popup{
+    0%{transform: translateY(15px); opacity: 0;}
+    100%{transform: translateY(0px); opacity: 1;}
+}
+
+.message__name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+.message__meta {
+    color: #777;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.io{
+    float: left;
+    transform: translate(10px,-10px);
+}
+
+.socket{
+    float: right;
+    transform: translate(-10px, -15px);
+}
+
+.message a {
+    color: #0070CC;
+}
+
+.show__users{
+    z-index: 10;
+    position: fixed;
+    right: 0px;
+    border-radius: 10px;
+    transform: translate(8px, 25px);
+    display: none;
+    animation: sideshow 0.5s ease-in-out forwards;
+}
+
+.show__users::before{
+    transform: translate(100px, 25px);
+}
+
+@keyframes sideshow{
+    0%{transform: translate(100px, 25px);}
+    100%{transform: translate(8px, 25px);}
+}
+
+
+
+
+@media only screen and (max-width: 800px){
+    .message{
+        width: 70%;
+    }
+    .chat__sidebar{
+        width: 0%;
+    }
+    .chat__main{
+        width: 100%;
+    }
+    .show__users{
+        display: block;
+    }
+}
+
+@keyframes sidein{
+    0%{width: 0%;}
+    100%{width: 50%;}
+}
+@keyframes midout{
+    0%{width: 100%;}
+    100%{width: 50%;}
+}
+
+@keyframes sideout{
+    0%{width: 50%;}
+    100%{width: 0%;}
+}
+@keyframes midin{
+    0%{width: 50%;}
+    100%{width: 100%;}
+}
+
+/* Message Composition Styles */
+
+.compose {
+    flex-shrink: 0;
+    /* margin-top: 16px; */
+    margin-bottom: 40px;
+    padding: 24px;
+}
+
+.compose form {
+    display: flex;
+    /* flex-grow: 1; */
+    /* margin-right: 16px; */
+}
+
+.compose  input {
+    border: 1px solid #eeeeee;
+    width: 100%;
+    padding: 12px;
+    margin: 0 10px 0 0;
+    flex-grow: 1;
+}
+
+.compose button {
+    font-size: 14px;
+    width: auto;
+}
+#send-location{
+    display: block;
+    margin-top: 5px;
+    width: 100%;
+}
+
+/* Chat Sidebar Styles */
+
+.room-title {
+    font-weight: 400;
+    font-size: 22px;
+    background: #2c2f3a;
+    padding: 24px;   
+}
+
+.list-title {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 4px;
+    padding: 12px 24px 0 24px;
+}
+
+.users {
+    list-style-type: none;
+    font-weight: 300;
+    padding: 12px 24px 0 24px;
+}
